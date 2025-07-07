@@ -46,28 +46,20 @@ export default function MovieCard({ data }: { data: Movie }) {
 
         <div className='flex items-center gap-3 text-lg col-span-2 md:col-span-1 md:place-self-end'>
           {data.Ratings.map((r, i) => {
-            if (r.Source === "Internet Movie Database") {
-              return (
-                <div key={i}>
+            return (
+              <>
+                {r.Source === "Internet Movie Database" && (
                   <SiImdb className='size-7' />
-                  {r.Value}
-                </div>
-              );
-            } else if (r.Source === "Rotten Tomatoes") {
-              return (
-                <div key={i}>
+                )}
+                {r.Source === "Rotten Tomatoes" && (
                   <SiRottentomatoes className='size-7' />
-                  {r.Value}
-                </div>
-              );
-            } else if (r.Source === "Metacritic") {
-              return (
-                <div key={i}>
+                )}
+                {r.Source === "Metacritic" && (
                   <SiMetacritic className='size-7' />
-                  {r.Value}
-                </div>
-              );
-            }
+                )}
+                {r.Value}
+              </>
+            );
           })}
         </div>
       </div>

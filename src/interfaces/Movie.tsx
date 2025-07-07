@@ -22,16 +22,3 @@ export interface Movie {
   Year: string;
   imdbID: string;
 }
-
-export interface MovieShort {
-  Poster: string;
-  Title: string;
-  Year: string;
-  imdbID: string;
-}
-
-export interface Response {
-  Response: boolean;
-  Search: Movie[];
-  totalResult: number;
-}

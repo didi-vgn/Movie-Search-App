@@ -5,6 +5,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.87);
-  background: oklch(37.2% 0.044 257.287);
+  color: oklch(96.8% 0.007 247.896);
+  background: oklch(27.9% 0.041 260.031);
 }
+
+/* * {
+  outline: 1px solid red;
+} */

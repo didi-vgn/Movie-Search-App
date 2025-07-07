@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { Movie, Response } from "../interfaces/Movie";
+import { Movie } from "../interfaces/Movie";
 import MovieCard from "../components/MovieCard";
-import { IoMdSearch } from "react-icons/io";
-import { API_URL } from "../utils/constants";
+import Header from "../components/Header";
+import { Outlet } from "react-router-dom";
 
 const data: Movie = {
   Actors: "Joaquin Phoenix, Patti LuPone, Amy Ryan",
@@ -31,37 +30,13 @@ const data: Movie = {
 };
 
 export default function MainPage() {
-  const [res, setRes] = useState<Response | null>(null);
-
-  async function fetchData() {
-    try {
-      const response = await fetch(`${API_URL}s=today&page=1`);
-      const data = await response.json();
-      if (response.ok) {
-        setRes(data);
-        console.log(data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    // fetchData();
-  }, []);
-
   return (
     <div className='w-full'>
-      <div className='p-1 bg-slate-900 grid grid-cols-[auto_1fr_auto] items-center gap-3'>
-        <div className='font-extrabold'>Movie App</div>
-        <input type='text' className='bg-slate-300' />
-        <button>
-          <IoMdSearch className='size-7' />
-        </button>
-      </div>
-      <div className='flex flex-col gap-2 lg:w-2/3 lg:m-auto'>
+      <Header />
+      <Outlet />
+      {/* <div className='flex flex-col gap-2 lg:w-2/3 lg:m-auto'>
         <MovieCard data={data} />
-      </div>
+      </div> */}
     </div>
   );
 }
