@@ -24,8 +24,6 @@ export function useMovieDetails(id: number): MovieDetails | null {
       );
       const omdbData = await resOmdbData.json();
 
-      console.log(credits);
-
       setData({
         ...movie,
         credits,

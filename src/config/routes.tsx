@@ -1,5 +1,6 @@
 import App from "../App";
 import MoviePage from "../views/MoviePage";
+import PersonPage from "../views/PersonPage";
 import SearchResults from "../views/SearchResults";
 
 export const routes = [
@@ -14,6 +15,10 @@ export const routes = [
       {
         path: "movie/:id",
         element: <MoviePage />,
+      },
+      {
+        path: "person/:id",
+        element: <PersonPage />,
       },
     ],
   },

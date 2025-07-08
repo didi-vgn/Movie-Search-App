@@ -54,3 +54,46 @@ export interface MovieDetails extends Movie {
   credits: Credits;
   omdbData: OmdbData;
 }
+
+export interface Person {
+  name: string;
+  id: number;
+  imdb_id: string;
+  profile_path: string;
+  known_for_department: string;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string;
+  place_of_birth: string;
+  popularity: number;
+}
+
+export interface PersonCast {
+  id: number;
+  character: string;
+  media_type: string;
+  title: string;
+  original_title: string;
+  release_date: string;
+  poster_path: string;
+  name: string;
+}
+
+export interface PersonCrew {
+  id: number;
+  job: string;
+  media_type: string;
+  title: string;
+  original_title: string;
+  release_date: string;
+  name: string;
+  poster_path: string;
+}
+
+export interface PersonDetails extends Person {
+  credits: {
+    cast: PersonCast[];
+    crew: PersonCrew[];
+  };
+}

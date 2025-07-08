@@ -30,14 +30,14 @@ export default function MoviePage() {
   return (
     <div className='xl:w-2/3 xl:mx-auto'>
       <div className='p-1 my-3 text-sm md:p-3 '>
-        <div className='grid grid-rows-[1.5rem_1rem_2rem_auto] grid-cols-[1fr_2fr] items-start gap-2 lg:grid-cols-[1fr_3fr]'>
+        <div className='grid grid-rows-[auto_1rem_2rem_auto] grid-cols-[1fr_2fr] items-start gap-2 lg:grid-cols-[1fr_3fr]'>
           <img
             src={TMDB_POSTER_500 + movie.poster_path}
             alt={movie.title ?? "Movie Poster"}
             className='row-span-2 row-start-3 rounded-lg md:row-start-1 md:row-span-6'
           />
 
-          <div className='font-bold text-xl col-span-2 md:col-span-1'>
+          <div className='font-bold text-2xl col-span-2 md:col-span-1'>
             {movie.title}
           </div>
 
