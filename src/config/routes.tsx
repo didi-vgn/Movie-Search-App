@@ -1,4 +1,5 @@
 import App from "../App";
+import MoviePage from "../views/MoviePage";
 import SearchResults from "../views/SearchResults";
 
 export const routes = [
@@ -9,6 +10,10 @@ export const routes = [
       {
         path: "search",
         element: <SearchResults />,
+      },
+      {
+        path: "movie/:id",
+        element: <MoviePage />,
       },
     ],
   },

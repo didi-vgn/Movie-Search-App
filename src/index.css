@@ -9,6 +9,10 @@
   background: oklch(27.9% 0.041 260.031);
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 /* * {
   outline: 1px solid red;
 } */

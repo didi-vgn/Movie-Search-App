@@ -1,10 +1,19 @@
-import { MovieShort } from "../interfaces/MovieShort";
+import { useNavigate } from "react-router-dom";
 import { TMDB_POSTER_200 } from "../utils/constants";
 import { TbMovie } from "react-icons/tb";
+import { MovieList } from "../utils/types";
 
-export default function MovieListItem({ data }: { data: MovieShort }) {
+export default function MovieListItem({ data }: { data: MovieList }) {
+  const navigate = useNavigate();
+  function handleClick() {
+    navigate("/movie/" + data.id);
+  }
+
   return (
-    <div className='grid grid-cols-[64px_1fr] gap-2 p-2 items-center xl:grid-cols-[128px_1fr]xl:gap-5 xl:p-5 xl:items-start'>
+    <div
+      className='cursor-pointer grid grid-cols-[64px_1fr] gap-2 p-2 items-center xl:grid-cols-[128px_1fr] xl:gap-5 xl:p-5 xl:items-start'
+      onClick={handleClick}
+    >
       {data.poster_path ? (
         <img
           src={TMDB_POSTER_200 + data.poster_path}

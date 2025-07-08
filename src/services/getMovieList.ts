@@ -1,6 +1,6 @@
 import { TMDB_KEY, TMDB_URL } from "../utils/constants";
 
-export async function fetchMovies(query: string, page: number) {
+export async function getMovieList(query: string, page: number) {
   const res = await fetch(
     `${TMDB_URL}search/movie?${TMDB_KEY}&query=${encodeURIComponent(
       query

@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { fetchMovies } from "../services/fetchMovies";
+import { getMovieList } from "../services/getMovieList";
 import MovieListItem from "../components/MovieListItem";
 import { FaCaretLeft } from "react-icons/fa6";
 import { FaCaretRight } from "react-icons/fa6";
-import { MovieShort } from "../interfaces/MovieShort";
+import { MovieList } from "../utils/types";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   const page = parseInt(searchParams.get("page")!);
-  const [results, setResults] = useState<MovieShort[]>([]);
+  const [results, setResults] = useState<MovieList[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchMovies(query!, page);
+        const data = await getMovieList(query!, page);
         setResults(data.results);
         setTotalPages(data.total_pages);
-        console.log(data);
       } catch (err) {
         console.error(err);
       }
@@ -49,7 +48,7 @@ export default function SearchResults() {
 
   return (
     <div className='p-1 mx-auto md:p-5 md:px-12 xl:w-2/3'>
-      <div className='text-xl'>Search results for "{query}"</div>
+      <div className='text-2xl'>Search results for "{query}"</div>
       <div className='grid divide-y items-center justify-center'>
         {results?.map((m) => (
           <MovieListItem data={m} key={m.id} />
