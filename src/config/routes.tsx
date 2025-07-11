@@ -2,6 +2,7 @@ import App from "../App";
 import MoviePage from "../views/MoviePage";
 import PersonPage from "../views/PersonPage";
 import SearchResults from "../views/SearchResults";
+import UserListPage from "../views/UserListPage";
 
 export const routes = [
   {
@@ -19,6 +20,10 @@ export const routes = [
       {
         path: "person/:id",
         element: <PersonPage />,
+      },
+      {
+        path: "my-list",
+        element: <UserListPage />,
       },
     ],
   },

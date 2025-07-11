@@ -59,10 +59,6 @@ export default function PersonPage() {
             <hr />
             <div>some details 3</div>
           </div>
-
-          <div className='flex items-center gap-3 text-lg col-span-2 md:col-span-1 md:place-self-end'>
-            no ratings, something else here
-          </div>
         </div>
       </div>
       <hr />

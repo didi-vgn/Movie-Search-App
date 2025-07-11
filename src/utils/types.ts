@@ -97,3 +97,15 @@ export interface PersonDetails extends Person {
     crew: PersonCrew[];
   };
 }
+
+export interface UserListMovie {
+  id: number;
+  title: string;
+  release_date: string;
+  poster_path: string;
+  watched: boolean;
+  notes: string;
+  genres: string[];
+  runtime: number;
+  rating: number;
+}

@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { TMDB_POSTER_500 } from "../utils/constants";
 import { useMovieDetails } from "../hooks/useMovieDetails";
 import { SiImdb } from "react-icons/si";
 import { SiRottentomatoes } from "react-icons/si";
@@ -9,10 +8,15 @@ import CastMemberProfile from "../components/CastMemberProfile";
 import Carousel from "../components/Carousel";
 import RoundedButton from "../components/RoundedButton";
 import { TbMovie } from "react-icons/tb";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import { useUserList } from "../context/UserListContext";
+import Poster from "../components/Poster";
 
 export default function MoviePage() {
   const { id } = useParams();
   const movie = useMovieDetails(Number(id));
+  const { isInList, addMovie } = useUserList();
 
   if (!movie) return <div>Loading...</div>;
 
@@ -27,18 +31,39 @@ export default function MoviePage() {
     .map((p) => p.name)
     .join(", ");
 
+  function handleClick() {
+    if (!movie) return;
+    const data = {
+      id: movie.id,
+      title: movie.title,
+      release_date: movie.release_date,
+      poster_path: movie.poster_path,
+      watched: false,
+      notes: "",
+      genres: movie.genres.map((g) => g.name),
+      runtime: movie.runtime,
+      rating: 0,
+    };
+    addMovie(data);
+  }
+
   return (
     <div className='xl:w-2/3 xl:mx-auto'>
       <div className='p-1 my-3 text-sm md:p-3 '>
         <div className='grid grid-rows-[auto_1rem_2rem_auto] grid-cols-[1fr_2fr] items-start gap-2 lg:grid-cols-[1fr_3fr]'>
-          <img
-            src={TMDB_POSTER_500 + movie.poster_path}
-            alt={movie.title ?? "Movie Poster"}
-            className='row-span-2 row-start-3 rounded-lg md:row-start-1 md:row-span-6'
-          />
+          <div className='row-span-2 row-start-3 rounded-lg md:row-start-1 md:row-span-6'>
+            <Poster path={movie.poster_path} title={movie.title} />
+          </div>
 
-          <div className='font-bold text-2xl col-span-2 md:col-span-1'>
-            {movie.title}
+          <div className='flex justify-between items-center col-span-2 md:col-span-1'>
+            <div className='font-bold text-2xl '>{movie.title}</div>
+            <button className='cursor-pointer' onClick={handleClick}>
+              {!isInList(movie.id) ? (
+                <FaRegHeart className='size-8' />
+              ) : (
+                <FaHeart className='size-8' />
+              )}
+            </button>
           </div>
 
           <div className='opacity-60 col-span-2 md:col-span-1'>
@@ -49,7 +74,7 @@ export default function MoviePage() {
 
           <div className='flex gap-2'>
             {movie.genres.map((g) => (
-              <RoundedButton text={g.name} />
+              <RoundedButton text={g.name} key={g.name} />
             ))}
           </div>
 
@@ -65,9 +90,9 @@ export default function MoviePage() {
           </div>
 
           <div className='flex items-center gap-3 text-lg col-span-2 md:col-span-1 md:place-self-end'>
-            {movie.omdbData.Ratings.map((r, i) => {
+            {movie.omdbData.Ratings?.map((r, i) => {
               return (
-                <>
+                <div key={r.Source} className='flex gap-1'>
                   {r.Source === "Internet Movie Database" && (
                     <SiImdb className='size-7' />
                   )}
@@ -78,7 +103,7 @@ export default function MoviePage() {
                     <SiMetacritic className='size-7' />
                   )}
                   {r.Value}
-                </>
+                </div>
               );
             })}
           </div>
@@ -89,11 +114,12 @@ export default function MoviePage() {
           <div className='font-bold text-xl m-5'>Cast</div>
           <Carousel>
             {movie.credits.cast.map((c) => (
-              <CastMemberProfile data={c} />
+              <CastMemberProfile data={c} key={c.id} />
             ))}
           </Carousel>
         </div>
         <div className='w-full'>
+          //placeholder
           <div className='font-bold text-xl m-5'>Similar Titles</div>
           <div className='flex flex-col gap-2 p-5'>
             <div className='bg-slate-500 rounded-md p-2 flex'>
