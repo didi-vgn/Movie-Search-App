@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMovieDetails } from "../hooks/useMovieDetails";
 import { SiImdb } from "react-icons/si";
 import { SiRottentomatoes } from "react-icons/si";
@@ -7,11 +7,13 @@ import { getMainProducers, getMainWriters } from "../utils/sort";
 import CastMemberProfile from "../components/CastMemberProfile";
 import Carousel from "../components/Carousel";
 import RoundedButton from "../components/RoundedButton";
-import { TbMovie } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useUserList } from "../context/UserListContext";
 import Poster from "../components/Poster";
+import Container from "../components/Container";
+import Section from "../components/Section";
+import { MovieList } from "../utils/types";
 
 export default function MoviePage() {
   const { id } = useParams();
@@ -48,7 +50,7 @@ export default function MoviePage() {
   }
 
   return (
-    <div className='xl:w-2/3 xl:mx-auto'>
+    <Container>
       <div className='p-1 my-3 text-sm md:p-3 '>
         <div className='grid grid-rows-[auto_1rem_2rem_auto] grid-cols-[1fr_2fr] items-start gap-2 lg:grid-cols-[1fr_3fr]'>
           <div className='row-span-2 row-start-3 rounded-lg md:row-start-1 md:row-span-6'>
@@ -110,41 +112,45 @@ export default function MoviePage() {
         </div>
       </div>
       <div className='grid xl:grid-cols-[2fr_1fr]'>
-        <div className='w-full max-w-full overflow-hidden'>
-          <div className='font-bold text-xl m-5'>Cast</div>
-          <Carousel>
-            {movie.credits.cast.map((c) => (
-              <CastMemberProfile data={c} key={c.id} />
-            ))}
-          </Carousel>
+        <div className='w-full overflow-hidden'>
+          <Section>
+            <div className='font-bold text-xl m-5'>Cast</div>
+            <Carousel>
+              {movie.credits.cast.map((c) => (
+                <CastMemberProfile data={c} key={c.id} />
+              ))}
+            </Carousel>
+          </Section>
         </div>
-        <div className='w-full'>
-          //placeholder
+        <Section>
           <div className='font-bold text-xl m-5'>Similar Titles</div>
-          <div className='flex flex-col gap-2 p-5'>
-            <div className='bg-slate-500 rounded-md p-2 flex'>
-              <div className='bg-slate-400 rounded-md'>
-                <TbMovie className='size-15' />
-              </div>
-            </div>
-            <div className='bg-slate-500 rounded-md p-2 flex'>
-              <div className='bg-slate-400 rounded-md'>
-                <TbMovie className='size-15' />
-              </div>
-            </div>
-            <div className='bg-slate-500 rounded-md p-2 flex'>
-              <div className='bg-slate-400 rounded-md'>
-                <TbMovie className='size-15' />
-              </div>
-            </div>
-            <div className='bg-slate-500 rounded-md p-2 flex'>
-              <div className='bg-slate-400 rounded-md'>
-                <TbMovie className='size-15' />
-              </div>
-            </div>
+          <div className="grid gap-2 p-2">
+            {movie.similar.map((m) =>
+              <SimilarTitle data={m} />
+            )}
           </div>
-        </div>
+        </Section>
       </div>
-    </div>
+    </Container>
   );
+}
+
+function SimilarTitle({ data }: { data: MovieList }) {
+  const navigate = useNavigate();
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }
+
+  function handleClick() {
+    navigate("/movie/" + data.id);
+    scrollToTop();
+  }
+
+  return <div className="grid grid-cols-[1fr_4fr] gap-2"
+    onClick={handleClick}
+  >
+    <Poster path={data.poster_path} title={data.title} />
+    <div className="font-bold">{data.title} {data.release_date ? `(${data.release_date.split("-")[0]})` : ""}</div>
+  </div>
 }

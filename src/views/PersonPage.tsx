@@ -9,6 +9,7 @@ import {
   MovieCarouselItemCast,
   MovieCarouselItemCrew,
 } from "../components/MovieCarouselItem";
+import Container from "../components/Container";
 
 export default function PersonPage() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export default function PersonPage() {
   if (!person) return <div>Loading...</div>;
 
   return (
-    <div className='xl:w-2/3 xl:mx-auto'>
+    <Container>
       <div className='p-1 my-3 text-sm md:p-3 '>
         <div className='grid grid-rows-[1.5rem_1rem_auto] grid-cols-[1fr_3fr] items-start gap-2 lg:grid-cols-[1fr_4fr]'>
           <img
@@ -81,6 +82,6 @@ export default function PersonPage() {
           </Carousel>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

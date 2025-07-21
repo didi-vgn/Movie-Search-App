@@ -16,7 +16,7 @@ export default function Poster({ path, title }: Props) {
           className='rounded-md'
         />
       ) : (
-        <div className='h-full w-full rounded-md bg-slate-600 flex justify-center items-center'>
+        <div className='h-full w-full min-h-25 rounded-md bg-slate-600 flex justify-center items-center xl:min-h-47'>
           <TbMovie className='size-16' />
         </div>
       )}

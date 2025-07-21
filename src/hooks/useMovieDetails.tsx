@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { OMDB_KEY, OMDB_URL, TMDB_KEY, TMDB_URL } from "../utils/constants";
 import { MovieDetails } from "../utils/types";
 import { sortByPopularity } from "../utils/sort";
+import { getSimilarMovies } from "../services/getSimilarMovies";
 
 export function useMovieDetails(id: number): MovieDetails | null {
   const [data, setData] = useState(null);
@@ -24,10 +25,14 @@ export function useMovieDetails(id: number): MovieDetails | null {
       );
       const omdbData = await resOmdbData.json();
 
+      const similarData = await getSimilarMovies(id);
+      const similar = similarData.results.slice(0, 5);
+
       setData({
         ...movie,
         credits,
         omdbData,
+        similar
       });
     }
 

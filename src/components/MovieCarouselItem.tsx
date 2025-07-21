@@ -11,7 +11,7 @@ function MovieCarouselItemCast({ data }: { data: PersonCast }) {
 
   return (
     <div
-      className='flex flex-col p-2 min-w-25 max-w-25 cursor-pointer'
+      className='flex flex-col p-2 min-w-25 max-w-25 cursor-pointer xl:min-w-50 xl:grid xl:grid-cols-2 xl:gap-2'
       onClick={handleClick}
     >
       <div className='relative overflow-hidden h-25 rounded-md '>
@@ -27,7 +27,7 @@ function MovieCarouselItemCast({ data }: { data: PersonCast }) {
           </div>
         )}
       </div>
-      <div className='text-center'>
+      <div className='text-center xl:text-left'>
         <div className='text-xs font-bold'>{data.title ?? data.name}</div>
         <div className='text-xs opacity-70'>{data.character}</div>
       </div>
@@ -42,7 +42,7 @@ function MovieCarouselItemCrew({ data }: { data: PersonCrew }) {
   }
   return (
     <div
-      className='flex flex-col p-2 min-w-25 max-w-25 cursor-pointer'
+      className='flex flex-col p-2 min-w-25 max-w-25 cursor-pointer xl:min-w-50 xl:grid xl:grid-cols-2 xl:gap-2'
       onClick={handleClick}
     >
       <div className='relative overflow-hidden h-25 rounded-md '>

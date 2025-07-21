@@ -53,6 +53,7 @@ interface Credits {
 export interface MovieDetails extends Movie {
   credits: Credits;
   omdbData: OmdbData;
+  similar: MovieList[];
 }
 
 export interface Person {

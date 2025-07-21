@@ -8,6 +8,7 @@ export default function SearchBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setQuery("")
     if (query.trim()) {
       navigate(`/search?query=${query.trim()}&page=1`);
     }

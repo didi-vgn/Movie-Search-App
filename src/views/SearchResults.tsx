@@ -56,15 +56,15 @@ export default function SearchResults() {
       </div>
       <div className='grid grid-cols-[1fr_4rem_1fr] justify-items-center gap-5 mt-4'>
         <button
-          className='justify-self-end cursor-pointer'
+          className={`justify-self-end cursor-pointer ${page <= 1 ? "hidden" : ""}`}
           disabled={page <= 1}
           onClick={prevPage}
         >
           <FaCaretLeft className='size-7 ' onClick={prevPage} />
         </button>
-        <div className='text-2xl font-bold'>{page}</div>
+        <div className='text-2xl font-bold col-start-2'>{page}</div>
         <button
-          className='justify-self-start cursor-pointer'
+          className={`justify-self-start cursor-pointer ${page >= totalPages ? "hidden" : ""}`}
           disabled={page >= totalPages}
           onClick={nextPage}
         >
